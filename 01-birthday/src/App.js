@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+
+import data from "./data";
+import Card from "./Card";
+import { useState } from "react";
 
 function App() {
+  console.log(data);
+  const [users, setUsers] = useState(data);
+  const handleRemove = () => {
+    console.log("Testing remove");
+    setUsers([]);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main className="cointainer">
+        <h1>Number of User today {users.length}</h1>
+        <Card users={users} />
+        <button onClick={handleRemove}> Remove All Users</button>
+      </main>
     </div>
   );
 }
