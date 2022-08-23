@@ -1,10 +1,12 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Loading from "./Loading";
 import Tours from "./Tours";
 
 const url = "https://course-api.com/react-tours-project";
+
+export const removeTourContext = React.createContext();
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -40,10 +42,12 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1>This is Main App</h1>
-      <Tours tours={tours} removeTour={removeTour} />
-    </div>
+    <removeTourContext.Provider value={removeTour}>
+      <div className="App">
+        <h1>This is Main App</h1>
+        <Tours tours={tours} />
+      </div>
+    </removeTourContext.Provider>
   );
 }
 

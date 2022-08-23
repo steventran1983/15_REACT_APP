@@ -1,8 +1,10 @@
-import { useState } from "react";
-function Tour({ tour, removeTour }) {
+import { useState, useContext } from "react";
+import { removeTourContext } from "./App";
+
+function Tour({ tour }) {
+  const removeTour = useContext(removeTourContext);
   const [toggle, setToogle] = useState(true);
   const { id, name, info, image, price } = tour;
-  console.log(removeTour);
   const readMore = () => {
     if (toggle) {
       return `${info.substring(0, 200)}...`;
