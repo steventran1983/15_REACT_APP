@@ -11,6 +11,7 @@ const Question = ({ id, title, info }) => {
           {showanswer ? "B" : "A"}
         </button>
       </header>
+
       {showanswer && <p>{info}</p>}
     </article>
   );
