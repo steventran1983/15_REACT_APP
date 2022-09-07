@@ -8,6 +8,7 @@ function App() {
   const [items, setItems] = useState([]);
   const [buttonType, setButtonType] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [itemId, setItemId] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +17,23 @@ function App() {
     if (!name) {
       //Do Alert for empt string
     } else if (name && isEditing) {
-      //Do Editing
+      console.log(`This is Function edit and then ${name}`);
+
+      const newItem = {
+        id: new Date().getTime().toString(),
+        title: name,
+      };
+
+      const newItems = items.map((item) => {
+        if (item.id === itemId) {
+          return newItem;
+        }
+        return item;
+      });
+
+      setItems(newItems);
+      setButtonType(false);
+      setIsEditing(false);
     } else {
       console.log("Adding new Item");
       const newItem = {
@@ -36,7 +53,7 @@ function App() {
   const handleClear = () => {
     console.log("This is clear function");
     setItems([]);
-    setName("Thang Cong Tu");
+    setName("");
   };
 
   const handleDelete = (id) => {
@@ -55,6 +72,7 @@ function App() {
     console.log(index);
     console.log(ArrayCopy[index].title);
     setName(ArrayCopy[index].title);
+    setItemId(ArrayCopy[index].id);
     // ArrayCopy[index] = {
     //   id: new Date().getTime().toString(),
     //   title: name,
