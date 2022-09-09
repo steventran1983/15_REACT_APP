@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 import List from "./Component/List";
+import Alert from "./Component/Alert";
 
 function App() {
   const [name, setName] = useState("");
@@ -9,13 +10,21 @@ function App() {
   const [buttonType, setButtonType] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [itemId, setItemId] = useState("");
-
+  const [alert, setAlert] = useState({
+    show: false,
+    content: "",
+    type: "",
+  });
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("This is Submit function");
 
     if (!name) {
-      //Do Alert for empt string
+      setAlert({
+        show: true,
+        content: "Please insert item name",
+        type: "danger",
+      });
     } else if (name && isEditing) {
       console.log(`This is Function edit and then ${name}`);
 
@@ -34,6 +43,11 @@ function App() {
       setItems(newItems);
       setButtonType(false);
       setIsEditing(false);
+      setAlert({
+        show: true,
+        content: "Edit successful",
+        type: "success",
+      });
     } else {
       console.log("Adding new Item");
       const newItem = {
@@ -42,6 +56,11 @@ function App() {
       };
       setItems([...items, newItem]);
       setName("");
+      setAlert({
+        show: true,
+        content: "Adding successful",
+        type: "success",
+      });
     }
   };
 
@@ -81,12 +100,12 @@ function App() {
     setItems(ArrayCopy);
   };
 
-  console.log(items);
   return (
     <div className="App">
       <section className="section-center">
         <form className="grocery=from" onSubmit={handleSubmit}>
           <h1>This is Grocery Application</h1>
+          {alert.show && <Alert {...alert} removeAlert={setAlert} />}
           <input
             type="text"
             placeholder="e.g eggs"
